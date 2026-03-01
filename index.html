@@ -655,6 +655,7 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
   </footer>
 </div>
 
+<div class="mfab-hint" id="mfabHint" style="position:fixed;bottom:28px;right:82px;z-index:1100;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:var(--gh);opacity:.7;animation:subPulse 2s ease-in-out infinite;white-space:nowrap;pointer-events:none">Click here for music →</div>
 <button class="mfab" id="musicBtn" type="button">
   <span class="ic">🎵</span>
   <div class="mbs"><div class="mbr"></div><div class="mbr"></div><div class="mbr"></div><div class="mbr"></div></div>
@@ -746,11 +747,17 @@ setInterval(spawnEmoji,300);
 /* ============================================================
    GATE ENTER
    ============================================================ */
+// Start music on ANY tap on gate
+document.getElementById("gate").addEventListener("click",async function gateMusic(){
+  if(!mS){await Tone.start();buildBolly();Tone.Transport.bpm.value=125;Tone.Transport.start();mS=true;mP=true;document.getElementById("musicBtn").classList.add("on");const h=document.getElementById("mfabHint");if(h)h.style.display="none"}
+  document.getElementById("gate").removeEventListener("click",gateMusic);
+},{once:true});
+
 const gate=document.getElementById("gate"),mag=document.getElementById("mag");
 document.getElementById("enterBtn").addEventListener("click",async()=>{
   gate.classList.add("gone");
   setTimeout(()=>{mag.classList.add("vis");burst(250);launchFW(10)},400);
-  if(!mS){await Tone.start();buildBolly();Tone.Transport.bpm.value=125;Tone.Transport.start();mS=true;mP=true;document.getElementById("musicBtn").classList.add("on")}
+  if(!mS){await Tone.start();buildBolly();Tone.Transport.bpm.value=125;Tone.Transport.start();mS=true;mP=true;document.getElementById("musicBtn").classList.add("on");const h=document.getElementById("mfabHint");if(h)h.style.display="none"}
 });
 
 /* ============================================================
@@ -837,7 +844,7 @@ document.getElementById("partyBtn").addEventListener("click",()=>{burst(300);lau
 let mP=false,mS=false;
 document.getElementById("musicBtn").addEventListener("click",async()=>{
   const b=document.getElementById("musicBtn");
-  if(!mS){await Tone.start();buildBolly();Tone.Transport.bpm.value=125;Tone.Transport.start();mS=true;mP=true;b.classList.add("on");return}
+  if(!mS){await Tone.start();buildBolly();Tone.Transport.bpm.value=125;Tone.Transport.start();mS=true;mP=true;b.classList.add("on");const h=document.getElementById("mfabHint");if(h)h.style.display="none";return}
   if(mP){Tone.Transport.pause();mP=false;b.classList.remove("on")}
   else{Tone.Transport.start();mP=true;b.classList.add("on")}
 });
