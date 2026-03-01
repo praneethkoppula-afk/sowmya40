@@ -73,17 +73,8 @@ canvas#gateSparkle{z-index:2}
 .gr4{width:800px;height:800px;border-color:rgba(51,246,255,.07);animation-delay:2.4s}
 @keyframes ringP{0%{opacity:0;transform:scale(.7)}50%{opacity:1}100%{opacity:0;transform:scale(1.4)}}
 
-/* Color flash overlay */
-.gate-flash{
-  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
-  animation:gFlash 3s ease-in-out infinite;
-}
-@keyframes gFlash{
-  0%,88%,100%{opacity:0}
-  90%{opacity:.06;background:var(--pk)}
-  94%{opacity:0}
-  96%{opacity:.04;background:var(--aq)}
-}
+/* Color flash overlay — disabled */
+.gate-flash{display:none}
 
 /* Moving spotlight beams */
 .gate-beam{
@@ -112,10 +103,10 @@ canvas#gateSparkle{z-index:2}
 }
 
 /* Gate content */
-.gate-content{position:relative;z-index:10;text-align:center;padding:0 20px}
+.gate-content{position:relative;z-index:10;text-align:center;padding:0 20px;max-height:95vh;overflow:visible}
 
 .gate-emoji-row{
-  font-size:52px;letter-spacing:18px;
+  font-size:40px;letter-spacing:12px;
   animation:emBounce 1.5s ease-in-out infinite;
   filter:drop-shadow(0 0 20px rgba(255,215,0,.3));
 }
@@ -135,7 +126,7 @@ canvas#gateSparkle{z-index:2}
 
 .gate-huge{
   font-family:'Instrument Serif',serif;font-style:italic;
-  font-size:clamp(58px,15vw,140px);line-height:.85;
+  font-size:clamp(48px,12vw,120px);line-height:.85;
   background:linear-gradient(135deg,#fff 0%,var(--gh) 20%,var(--pk) 40%,var(--aq) 60%,var(--mg) 80%,#fff 100%);
   background-size:400% 400%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
@@ -146,17 +137,17 @@ canvas#gateSparkle{z-index:2}
 
 .gate-40{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(110px,25vw,220px);
-  line-height:.7;letter-spacing:-4px;
+  font-size:clamp(90px,20vw,180px);
+  line-height:.75;letter-spacing:-4px;
   background:linear-gradient(180deg,var(--gh),var(--gold),var(--pk));
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 0 40px rgba(255,215,0,.4)) drop-shadow(0 0 80px rgba(255,45,138,.2));
   animation:n40G 1.5s ease-in-out infinite;
-  margin:8px 0 4px;
+  margin:4px 0;
 }
 @keyframes n40G{0%,100%{filter:drop-shadow(0 0 40px rgba(255,215,0,.4)) drop-shadow(0 0 80px rgba(255,45,138,.2));transform:scale(1)}50%{filter:drop-shadow(0 0 70px rgba(255,215,0,.6)) drop-shadow(0 0 120px rgba(255,45,138,.35));transform:scale(1.03)}}
 
-.gate-sub{font-family:'Caveat',cursive;font-size:24px;color:var(--pkh);margin-bottom:26px;
+.gate-sub{font-family:'Caveat',cursive;font-size:20px;color:var(--pkh);margin-bottom:20px;
   animation:subPulse 2s ease-in-out infinite}
 @keyframes subPulse{0%,100%{opacity:.7}50%{opacity:1;color:var(--aq)}}
 
@@ -349,7 +340,7 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
 
 /* Tagline */
 .tag-blk{text-align:center;padding:32px 20px;border-bottom:1px solid rgba(255,45,138,.06)}
-.tagline{font-family:'Instrument Serif',serif;font-size:clamp(20px,3.5vw,30px);font-style:italic;line-height:1.4;color:var(--cr);max-width:520px;margin:0 auto}
+.tagline{font-family:'DM Sans',sans-serif;font-size:clamp(17px,3vw,22px);font-weight:400;line-height:1.6;color:var(--cr);max-width:520px;margin:0 auto}
 .tagline .hl{color:var(--gl);text-decoration:underline;text-decoration-color:rgba(212,168,67,.25);text-underline-offset:4px}
 .tag-fun{font-family:'Caveat',cursive;font-size:21px;color:var(--pk);opacity:.7;margin-top:16px;line-height:1.4}
 
@@ -490,10 +481,14 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
 .foot .fam{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--crd);opacity:.2;margin-top:14px}
 
 /* Music fab */
-.mfab{position:fixed;bottom:20px;right:20px;z-index:60;width:56px;height:56px;border-radius:50%;
+.mfab{position:fixed;bottom:20px;right:20px;z-index:1100;width:56px;height:56px;border-radius:50%;
   border:1px solid rgba(255,45,138,.25);background:rgba(5,2,13,.9);backdrop-filter:blur(12px);
   cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;
-  box-shadow:0 8px 28px rgba(0,0,0,.5)}
+  box-shadow:0 8px 28px rgba(0,0,0,.5);
+  animation:fabPulse 2s ease-in-out infinite;
+}
+@keyframes fabPulse{0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 0 0 rgba(255,45,138,0)}50%{box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 20px 8px rgba(255,45,138,.25)}}
+.mfab.on{animation:none}
 .mfab:hover{border-color:var(--pk);box-shadow:0 8px 36px rgba(255,45,138,.2)}
 .mfab .ic{font-size:20px}.mfab .mbs{display:none;align-items:flex-end;gap:2px;height:18px}
 .mfab.on .ic{display:none}.mfab.on .mbs{display:flex}
@@ -589,7 +584,7 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
   </div></section>
 
   <div class="tag-blk">
-    <p class="tagline">Pull up for the <span class="hl">loud laughs</span>, epic pictures & a night that feels like a <span class="hl">private club</span>… in the living room.<br>Bring your <span class="hl">best energy</span> — we're celebrating our queen 👑</p>
+    <p class="tagline">Pull up for the <span class="hl">loud laughs</span>, epic pictures & a night that feels like a <span class="hl">private club</span>.<br>Bring your <span class="hl">best energy</span> — we're celebrating our queen 👑</p>
     <p class="tag-fun">Leave the kids with dad. Leave the husband on the couch.<br>Leave your diet at the door. Tonight, you're off duty. ✨</p>
   </div>
 
@@ -606,7 +601,7 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
   <div class="edv"><div class="edl"></div><div class="edt">The Vibe</div><div class="edl"></div></div>
 
   <section class="vibe">
-    <div class="vibe-hl">DJ inside, drinks outside — <span>best of both worlds</span> 🏡</div>
+    <div class="vibe-hl">Music inside, drinks outside — <span>best of both worlds</span> 🏡</div>
     <div class="vpills">
       <div class="vpill"><span class="inn"><span class="em">💃</span>Bollywood Night</span></div>
       <div class="vpill"><span class="inn"><span class="em">🎶</span>Music & Dance</span></div>
@@ -631,12 +626,12 @@ canvas#fireworks{position:fixed;inset:0;pointer-events:none;z-index:49}
   <section class="rules">
     <div class="rules-hd">The <span>House Rules</span> 📋</div>
     <div class="rule"><div class="rn">01</div><div>No judging anyone's dance moves. Even the bad ones. <em>Especially</em> the bad ones.</div></div>
-    <div class="rule"><div class="rn">02</div><div>If the DJ plays your song, you MUST get up. No "maybe later."</div></div>
+    <div class="rule"><div class="rn">02</div><div>If your song comes on, you MUST get up. No "maybe later."</div></div>
     <div class="rule"><div class="rn">03</div><div>Calories don't count after 9 PM. This is science. 🧪</div></div>
     <div class="rule"><div class="rn">04</div><div>Phones allowed ONLY for selfies, reels & texting "I'm on my way" (even if you're not).</div></div>
     <div class="rule"><div class="rn">05</div><div>The birthday queen is always right. Even when she's wrong. <em>Especially</em> then. 👑</div></div>
     <div class="rule"><div class="rn">06</div><div>You must tell Sowmya she looks 25. Repeatedly. With conviction. 💅</div></div>
-    <div class="rule"><div class="rn">07</div><div>Heels are encouraged. Regret is guaranteed. Flats are hidden in the closet. 👠</div></div>
+
   </section>
 
   <section class="rsvp">
